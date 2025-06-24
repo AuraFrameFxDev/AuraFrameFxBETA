@@ -1,0 +1,133 @@
+[versions]
+# Android Gradle Plugin
+androidGradlePlugin = "8.1.4" # Use a recent stable version
+
+# Kotlin
+kotlin = "2.0.0" # Use a recent stable version matching your Gradle plugin
+kotlinCore = "2.0.0" # For Kotlin Coroutines if needed separately
+
+# Compose
+jetbrainsCompose = "1.7.0" # Use a recent stable version
+
+# Hilt
+hilt = "2.51.1" # Use a recent stable version
+
+# KSP
+ksp = "2.0.0-1.0.20" # Ensure this matches your Kotlin version
+
+# Google Services & Firebase
+googleServices = "4.4.2"
+firebaseCrashlyticsPlugin = "2.9.9" # Plugin ID for Crashlytics
+firebasePerfPlugin = "1.4.2" # Plugin ID for Performance Monitoring
+firebaseBom = "33.1.1" # Latest Firebase BOM version
+
+# Navigation
+navigationSafeArgs = "2.7.7" # For Safe Args if used
+
+# OpenAPI Generator
+openApiGenerator = "7.6.0" # Latest stable version
+
+# Android Jetpack Libraries
+coreKtx = "1.13.1"
+appcompat = "1.7.0" # Use a recent stable version
+lifecycle = "2.8.3" # Use a recent stable version
+activityCompose = "1.9.0"
+navigation = "2.7.7"
+room = "2.6.1"
+workManager = "2.9.0"
+datastore = "1.1.1"
+securityCrypto = "1.1.0-alpha06"
+multidex = "2.0.1"
+
+# Compose BOM
+composeBom = "2024.10.00" # Use a recent stable version
+
+# Hilt Compose Integration
+hiltNavigationCompose = "1.2.0"
+
+# Material Design (if not using Compose BOM's material)
+material3 = "1.12.0" # Example for Material 3
+
+# Accompanist (if needed)
+# accompanist = "0.34.0" # If you use specific Accompanist libraries
+
+# Retrofit & OkHttp
+retrofit = "2.10.0" # Latest stable Retrofit version
+okhttp = "4.12.0" # Latest stable OkHttp version
+
+# Xposed/LSPosed
+lsposed = "1.0.0" # Or the specific version you need for Xposed API
+
+[libraries]
+# Hilt
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+# Room
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+# Retrofit & OkHttp
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-kotlinx-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version = "1.0.0" } # Explicitly defining if not in versions
+okhttp-core = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+# Compose
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" } # Uses version from BOM
+compose-material = { group = "androidx.compose.material", name = "material" } # Uses version from BOM
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" } # Uses version from BOM
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" } # Uses version from BOM
+
+# Xposed/LSPosed
+lsposed-api = { group = "de.robv.android.xposed", name = "api", version.ref = "lsposed" }
+
+# Other common Android libraries
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+security-crypto-ktx = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "securityCrypto" }
+multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
+
+# Firebase Libraries (use BOM for versions)
+firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-perf-ktx = { group = "com.google.firebase", name = "firebase-perf-ktx" }
+
+[plugins]
+# Android Application Plugin
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+
+# Kotlin Plugins
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" } # Use Kotlin version for serialization plugin
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" } # Use Kotlin version for compose plugin
+
+# Hilt Plugin
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
+# KSP Plugin
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+# OpenAPI Generator Plugin
+# Ensure this matches the version of the generator you want to use
+openapi-generator = { id = "org.openapitools.generator", version.ref = "openApiGenerator" }
+
+# Google Services Plugin
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+
+# Firebase Plugins
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
+

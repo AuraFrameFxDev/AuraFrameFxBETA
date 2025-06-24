@@ -1,0 +1,18 @@
+# ninja log v5
+1	860	7724471561109833	CMakeFiles/language_id_l2c_jni.dir/language_id_l2c_jni.cpp.o	a781f831f8bc9cbc
+873	1101	7724471562807455	C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/build/intermediates/cxx/Debug/z1f5x214/obj/armeabi-v7a/language_id_l2c_jni.so	e8181f46371c7b42
+0	25	0	clean	bfff2010d6239e2d
+6	747	7724475622885774	CMakeFiles/language_id_l2c_jni.dir/language_id_l2c_jni.cpp.o	a781f831f8bc9cbc
+748	1263	7724475625210350	C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/build/intermediates/cxx/Debug/z1f5x214/obj/armeabi-v7a/language_id_l2c_jni.so	e8181f46371c7b42
+1	10	0	clean	bfff2010d6239e2d
+0	15	0	clean	bfff2010d6239e2d
+6	687	7724494121595619	CMakeFiles/language_id_l2c_jni.dir/language_id_l2c_jni.cpp.o	a781f831f8bc9cbc
+688	815	7724494122825625	C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/build/intermediates/cxx/Debug/z1f5x214/obj/armeabi-v7a/language_id_l2c_jni.so	e8181f46371c7b42
+0	10	0	clean	bfff2010d6239e2d
+16	706	7724500570158360	CMakeFiles/language_id_l2c_jni.dir/language_id_l2c_jni.cpp.o	a781f831f8bc9cbc
+707	1178	7724500572108391	C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/build/intermediates/cxx/Debug/z1f5x214/obj/armeabi-v7a/language_id_l2c_jni.so	e8181f46371c7b42
+15	307	7724514580380569	C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/build/intermediates/cxx/Debug/z1f5x214/obj/armeabi-v7a/language_id_l2c_jni.so	e8181f46371c7b42
+0	12	0	clean	bfff2010d6239e2d
+0	11	0	clean	bfff2010d6239e2d
+10	830	7724524148493527	CMakeFiles/language_id_l2c_jni.dir/language_id_l2c_jni.cpp.o	a781f831f8bc9cbc
+830	1152	7724524151508397	C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/build/intermediates/cxx/Debug/z1f5x214/obj/armeabi-v7a/language_id_l2c_jni.so	e8181f46371c7b42

@@ -1,0 +1,3 @@
+C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/.cxx/Debug/z1f5x214/armeabi-v7a/CMakeFiles/language_id_l2c_jni.dir
+C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/.cxx/Debug/z1f5x214/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Wehtt/Desktop/AuraFrameFx-Beta-main/app/.cxx/Debug/z1f5x214/armeabi-v7a/CMakeFiles/rebuild_cache.dir
