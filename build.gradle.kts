@@ -11,10 +11,3 @@ plugins {
     // Other plugins like kotlin-serialization, compose, google-services, firebase-*, openapi-generator
     // are applied directly in the app/build.gradle.kts with their versions.
 }
-
-allprojects {
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions.jvmTarget = "21"
-    }
-}
-
