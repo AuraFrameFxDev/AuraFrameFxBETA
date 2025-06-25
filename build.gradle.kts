@@ -1,11 +1,3 @@
-allprojects {
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-    }
-}
-
 buildscript {
     repositories {
         google()
@@ -26,5 +18,11 @@ buildscript {
 plugins {
     id("com.google.devtools.ksp") version "2.1.21-2.0.2" apply false
 }
-
-// Removed allprojects.repositories block to avoid repository conflict with settings.gradle.kts
+ 
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
