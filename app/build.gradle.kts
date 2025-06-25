@@ -15,12 +15,12 @@ plugins {
 @Suppress("UnstableApiUsage")
 android {
     namespace = "dev.aurakai.auraframefx"
-    compileSdk = 34 // From plan
+    compileSdk = 36 // Addressing AAR metadata feedback
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        minSdk = 31 // From plan
-        targetSdk = 34 // From plan
+        minSdk = 31 // As per compatibility plan (LSPosed)
+        targetSdk = 36 // Addressing AAR metadata feedback
         versionCode = 1
         versionName = "1.0"
 
