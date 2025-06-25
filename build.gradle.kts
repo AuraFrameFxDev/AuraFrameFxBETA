@@ -18,11 +18,9 @@ buildscript {
 plugins {
     id("com.google.devtools.ksp") version "2.1.21-2.0.2" apply false
 }
- 
+
 allprojects {
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-        kotlinOptions {
-            jvmTarget = "21"
-        }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions.jvmTarget = "21"
     }
 }
