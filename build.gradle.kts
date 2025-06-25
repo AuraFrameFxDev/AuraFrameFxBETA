@@ -1,22 +1,13 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.10.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.21")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.51.1")
-        classpath("com.google.gms:google-services:4.4.2")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.9")
-        classpath("com.google.firebase:perf-plugin:1.4.2")
-        // Removed KSP and OpenAPI Generator classpaths to avoid plugin block conflicts
-    }
-}
+// Top-level build file.
+// Plugin versions are managed in settings.gradle.kts within the pluginManagement block,
+// which refers to gradle/libs.versions.toml.
 
+@Suppress("UnstableApiUsage") // For using libs from version catalog in plugins block
 plugins {
-    id("com.google.devtools.ksp") version "2.1.21-2.0.2" apply false
+    id("com.android.application") apply false
+    id("org.jetbrains.kotlin.android") apply false
+    id("com.google.devtools.ksp") apply false
+    id("com.google.dagger.hilt.android") apply false
+    // Other plugins like kotlin-serialization, compose, google-services, firebase-*, openapi-generator
+    // are applied directly in the app/build.gradle.kts with their versions.
 }
-
-// Removed allprojects.repositories block to avoid repository conflict with settings.gradle.kts
