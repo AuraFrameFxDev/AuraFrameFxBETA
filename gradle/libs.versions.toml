@@ -4,7 +4,7 @@ kotlin = "2.1.21"
 ksp = "2.1.21-2.0.2"
 composeBom = "2025.06.00"
 firebaseBom = "33.15.0"
-hilt = "2.7.0" # Hilt Android Gradle Plugin and runtime
+hilt = "2.51.1" # Hilt Android Gradle Plugin and runtime
 dagger = "2.51.1" # Dagger/Hilt KSP compilers
 googleServicesPlugin = "4.4.2" # For com.google.gms.google-services plugin
 
