@@ -8,7 +8,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
-    kotlin("kapt")
+    // kotlin("kapt") // Removed as Hilt and Room are on KSP
     id("org.openapi.generator") version "7.6.0"
 }
 
@@ -181,7 +181,7 @@ dependencies {
     
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler) // Changed from kapt to ksp
     implementation(libs.hilt.navigation.compose)
     
     // Room Database
