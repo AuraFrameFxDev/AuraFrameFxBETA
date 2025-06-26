@@ -1,34 +1,31 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
+    id("com.google.dagger.hilt.android") version "2.70"
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("com.google.devtools.ksp")
-    // kotlin("kapt") // Removed as Hilt and Room are on KSP
+    id("org.jetbrains.kotlin.plugin.compose") version "1.9.10"
+    id("com.google.devtools.ksp") version "1.9.0-1.0.12"
     id("org.openapi.generator") version "7.6.0"
 }
 
 @Suppress("UnstableApiUsage")
 android {
     namespace = "dev.aurakai.auraframefx"
-    compileSdk = 36 // Addressing AAR metadata feedback
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        minSdk = 31 // As per compatibility plan (LSPosed)
-        targetSdk = 36 // Addressing AAR metadata feedback
+        minSdk = 31
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
-        
+        vectorDrawables.useSupportLibrary = true
+
         ndk {
             abiFilters += listOf("arm64-v8a", "armeabi-v7a")
         }
@@ -43,42 +40,42 @@ android {
             )
         }
     }
+
     compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
-kotlin {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-}
-        }
+
+    kotlinOptions {
+        jvmTarget = "17"
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
         viewBinding = true
     }
+
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11" // For Kotlin 2.1.21
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "/META-INF/*.kotlin_module"
         }
     }
-    
-    // Configure native builds
+
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
             version = libs.versions.cmake.get()
         }
     }
-    
+
     ndkVersion = libs.versions.ndk.get()
-    
+
     sourceSets {
         getByName("main") {
             java.srcDirs("build/generated/source/openapi/src/main/java")
@@ -101,7 +98,7 @@ tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plu
     ))
 }
 
-// Generate Java client  
+// Generate Java client
 tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("java")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -114,7 +111,7 @@ tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.ta
         "java8" to "true",
         "useRxJava2" to "false"
     ))
-    
+
     apiPackage.set("dev.aurakai.auraframefx.java.api")
     modelPackage.set("dev.aurakai.auraframefx.java.model")
     invokerPackage.set("dev.aurakai.auraframefx.java.client")
@@ -146,7 +143,12 @@ val generatePythonClient by tasks.registering(org.openapitools.generator.gradle.
 
 // Configure tasks to run generation before compilation
 tasks.named("preBuild") {
-    dependsOn("generateTypeScriptClient", "generateJavaClient", "openApiGenerate", "generatePythonClient")
+    dependsOn(
+        "generateTypeScriptClient",
+        "generateJavaClient",
+        "openApiGenerate",
+        "generatePythonClient"
+    )
 }
 
 tasks.named("clean") {
@@ -159,7 +161,7 @@ tasks.named("clean") {
 @Suppress("UnstableApiUsage")
 dependencies {
     // Compose BOM and dependencies
-    implementation(platform(libs.androidx.compose.bom)) // Version "2025.06.00" from toml
+    implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
@@ -167,7 +169,6 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.runtime.livedata)
-    // Note:androidTestImplementation("androidx.compose.ui:ui-test-junit4") was already changed to libs.androidx.compose.ui.test.junit4
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
@@ -175,77 +176,76 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.multidex)
-    
+
     // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)
-    
+
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)      // Hilt KSP compiler
-    ksp(libs.dagger.compiler)    // Dagger KSP compiler
+    ksp(libs.hilt.compiler)
+    ksp(libs.dagger.compiler)
     implementation(libs.hilt.navigation.compose)
-    
+
     // Room Database
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    add("ksp", libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
 
     // Network - Retrofit & OkHttp
     implementation(libs.squareup.retrofit2.retrofit)
     implementation(libs.squareup.okhttp3.okhttp)
     implementation(libs.squareup.okhttp3.logging.interceptor)
     implementation(libs.jakewharton.retrofit2.kotlinx.serialization.converter)
-    
+
     // Serialization
     implementation(libs.jetbrains.kotlinx.serialization.json)
     implementation(libs.jetbrains.kotlinx.datetime)
-    
+
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics.ktx)
     implementation(libs.firebase.crashlytics.ktx)
-    implementation(libs.firebase.perf.ktx) // Already using libs alias from previous step for these
-    implementation(libs.firebase.auth.ktx)   // Already using libs alias
-    implementation(libs.firebase.firestore.ktx) // Already using libs alias
-    
+    implementation(libs.firebase.perf.ktx)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
+
     // Security
     implementation(libs.androidx.security.crypto.ktx)
-    
+
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
-    
+
     // DataStore
     implementation(libs.androidx.datastore.preferences)
-    
+
     // Image Loading
     implementation(libs.coil.compose)
-    
+
     // Permissions
     implementation(libs.google.accompanist.permissions)
-    
+
     // System UI Controller
     implementation(libs.google.accompanist.systemuicontroller)
-    
+
     // Generated OpenAPI clients / Other JSON libs
     implementation(libs.squareup.moshi.kotlin)
     implementation(libs.squareup.moshi.adapters)
     implementation(libs.google.code.gson)
-    
+
     // LSPosed/Xposed (for root features)
-    compileOnly(files("${rootProject.projectDir}/Libs/api-82.jar")) // This remains as is
+    compileOnly(files("${rootProject.projectDir}/Libs/api-82.jar"))
 
     // Testing dependencies
     testImplementation(libs.test.junit)
     testImplementation(libs.test.kotlinx.coroutines)
     testImplementation(libs.test.androidx.arch.core)
     testImplementation(libs.test.mockk)
-    
+
     androidTestImplementation(libs.androidTest.androidx.test.ext.junit)
     androidTestImplementation(libs.androidTest.espresso.core)
-    // androidTestImplementation(libs.androidx.compose.ui.test.junit4) // This is already handled above with compose.bom
-    
-    debugImplementation(libs.androidx.compose.ui.tooling) // Already handled by compose.bom
-    debugImplementation(libs.androidx.compose.ui.test.manifest) // Already handled by compose.bom
+
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
