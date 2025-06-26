@@ -1,10 +1,10 @@
 [versions]
-agp = "8.6.0"
+agp = "8.12.0"
 kotlin = "2.1.21"
 ksp = "2.1.21-2.0.2"
 composeBom = "2025.06.00"
 firebaseBom = "33.15.0"
-hilt = "2.56.2"
+hilt = "2.7.0"
 googleServicesPlugin = "4.4.2" # For com.google.gms.google-services plugin
 
 # Android Jetpack and other libraries (retain and update as needed from old, or add new ones)
@@ -13,7 +13,7 @@ appcompat = "1.7.0" # Example, verify latest compatible
 lifecycle = "2.8.4" # Example, verify latest compatible (was 2.8.3, check latest)
 activityCompose = "1.9.1" # Example, verify latest compatible (was 1.9.0)
 navigation = "2.7.7"
-room = "2.6.1"
+room = "2.7.0"
 workManager = "2.9.0"
 datastore = "1.1.1"
 securityCrypto = "1.1.0-alpha06"
