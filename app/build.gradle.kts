@@ -42,12 +42,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
 
     buildFeatures {
@@ -184,8 +186,8 @@ dependencies {
 
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    ksp(libs.dagger.compiler)
+    // kapt(libs.hilt.compiler) // Switching to KSP for Hilt
+    add("ksp", libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
     // Room Database
