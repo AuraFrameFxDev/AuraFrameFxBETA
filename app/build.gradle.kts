@@ -181,7 +181,8 @@ dependencies {
     
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    // kapt(libs.hilt.compiler) // Switching to KSP for Hilt
+    add("ksp", libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     
     // Room Database
