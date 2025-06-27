@@ -5,7 +5,7 @@ pluginManagement {
         gradlePluginPortal()
         // maven { url = uri("https://plugins.gradle.org/m2/") } // This was for testing, gradlePluginPortal() is preferred
     }
-    // @Suppress("UnstableApiUsage") // No longer needed as libs is not used here
+    
     plugins {
         id("com.android.application") version "8.11.0"
         id("org.jetbrains.kotlin.android") version "2.1.21"
