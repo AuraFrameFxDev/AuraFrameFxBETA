@@ -1,10 +1,13 @@
 [versions]
-agp = "8.6.0"
+agp = "8.14.2"
 kotlin = "2.1.21"
 ksp = "2.1.21-2.0.2"
 composeBom = "2025.06.00"
 firebaseBom = "33.15.0"
-hilt = "2.56.2"
+
+hilt = "2.70" # Hilt Android Gradle Plugin and runtime (harmonized with settings.gradle.kts)
+dagger = "2.70" # Dagger/Hilt KSP compilers (aligned with Hilt version)
+
 googleServicesPlugin = "4.4.2" # For com.google.gms.google-services plugin
 
 # Android Jetpack and other libraries (retain and update as needed from old, or add new ones)
@@ -12,16 +15,16 @@ coreKtx = "1.13.1" # Example, verify latest compatible
 appcompat = "1.7.0" # Example, verify latest compatible
 lifecycle = "2.8.4" # Example, verify latest compatible (was 2.8.3, check latest)
 activityCompose = "1.9.1" # Example, verify latest compatible (was 1.9.0)
-navigation = "2.7.7" # Stays
-room = "2.6.1" # Stays
-workManager = "2.9.0" # Stays
-datastore = "1.1.1" # Stays
-securityCrypto = "1.1.0-alpha06" # Stays
-multidex = "2.0.1" # Stays
-hiltNavigationCompose = "1.2.0" # Stays
+navigation = "2.7.7"
+room = "2.7.0" # Downgraded from 2.7.0 to latest stable for KSP troubleshooting
+workManager = "2.9.0"
+datastore = "1.1.1"
+securityCrypto = "1.1.0-alpha06"
+multidex = "2.0.1"
+hiltNavigationCompose = "1.2.0"
 
-# OpenAPI - plugin version is applied directly in app/build.gradle.kts, generator version in task
-openApiGeneratorTool = "7.6.0" # For the tool version if needed separately, plugin is id("org.openapi.generator") version "7.6.0"
+# OpenAPI
+openApiGeneratorTool = "7.6.0"
 
 # NDK and CMake
 ndk = "26.2.11394342"
@@ -37,8 +40,8 @@ espressoCore = "3.6.1"
 
 # Other
 coilCompose = "2.6.0"
-accompanistPermissions = "0.34.0" # Check if still needed / latest
-accompanistSystemUIController = "0.34.0" # Check if still needed / latest
+accompanistPermissions = "0.34.0"
+accompanistSystemUIController = "0.34.0"
 moshiKotlin = "1.15.1"
 moshiAdapters = "1.15.1"
 gson = "2.10.1"
@@ -48,9 +51,7 @@ retrofitKotlinxSerializationConverter = "1.0.0"
 kotlinxSerializationJson = "1.6.3"
 kotlinxDatetime = "0.5.0"
 
-
 [libraries]
-# AndroidX Core
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
@@ -59,15 +60,15 @@ androidx-multidex = { group = "androidx.multidex", name = "multidex", version.re
 
 # Compose Bill of Materials (BOM)
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" } # No version, managed by BOM
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" } # No version, managed by BOM
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" } # No version, managed by BOM
-androidx-compose-material = { group = "androidx.compose.material", name = "material" } # No version, managed by BOM (legacy, if still used)
-androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" } # No version, managed by BOM
-androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" } # No version, managed by BOM
-androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" } # For testing
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" } # For debug
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" } # For debug
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
 # Navigation
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
@@ -75,14 +76,15 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 # Hilt
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" } # For kapt
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" } # Hilt Android Gradle Plugin and runtime
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "dagger" } # KSP Hilt compiler
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" } # KSP Dagger compiler
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 # Room
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" } # For ksp
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 # Network
 squareup-retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -96,11 +98,11 @@ jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 
 # Firebase Bill of Materials (BOM)
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" } # No version, managed by BOM
-firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" } # No version, managed by BOM
-firebase-perf-ktx = { group = "com.google.firebase", name = "firebase-perf-ktx" } # No version, managed by BOM
-firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" } # No version, managed by BOM
-firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" } # No version, managed by BOM
+firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-perf-ktx = { group = "com.google.firebase", name = "firebase-perf-ktx" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
 
 # Security
 androidx-security-crypto-ktx = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "securityCrypto" }
@@ -114,11 +116,11 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 # Image Loading
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 
-# Permissions & System UI (Accompanist - check if still needed or replaced by official APIs)
+# Permissions & System UI (Accompanist)
 google-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistPermissions" }
 google-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanistSystemUIController" }
 
-# Other JSON/Serialization libs (Moshi, Gson - for OpenAPI or legacy)
+# Other JSON/Serialization libs (Moshi, Gson)
 squareup-moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshiKotlin" }
 squareup-moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshiAdapters" }
 google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
@@ -131,18 +133,15 @@ test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 androidTest-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestExtJunit" }
 androidTest-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" } # Ensure this uses the correct Kotlin version for Compose
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" } # Version from original build file for now
-firebase-perf = { id = "com.google.firebase.firebase-perf", version = "1.4.2" } # Version from original build file for now
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
+firebase-perf = { id = "com.google.firebase.firebase-perf", version = "1.4.2" }
 openapi-generator = { id = "org.openapitools.generator", version = "7.6.0" }
-
-```
