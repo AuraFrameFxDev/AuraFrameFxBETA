@@ -45,7 +45,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-        jvmTarget.set(JavaVersion.VERSION_1_8.toString())
+        jvmTarget.set(JavaVersion.VERSION_21.toString())
         }
     }
 
