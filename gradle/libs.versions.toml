@@ -10,9 +10,6 @@ moshiAdapters = "1.15.1"
 composeBom = "2025.06.00"
 firebaseBom = "33.15.0"
 
-hilt = "2.51"
-dagger = "2.51"
-
 googleServicesPlugin = "4.4.2"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
