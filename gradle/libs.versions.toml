@@ -144,5 +144,3 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" } # Version from original build file for now
 firebase-perf = { id = "com.google.firebase.firebase-perf", version = "1.4.2" } # Version from original build file for now
 openapi-generator = { id = "org.openapitools.generator", version = "7.6.0" }
-
-```

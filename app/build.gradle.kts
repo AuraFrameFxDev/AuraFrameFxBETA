@@ -12,7 +12,6 @@ plugins {
     id("org.openapi.generator") version "7.6.0"
 }
 
-@Suppress("UnstableApiUsage")
 android {
     namespace = "dev.aurakai.auraframefx"
     compileSdk = 36 // Addressing AAR metadata feedback
@@ -30,7 +29,7 @@ android {
         }
         
         ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
         }
     }
 
@@ -154,7 +153,6 @@ tasks.named("clean") {
     }
 }
 
-@Suppress("UnstableApiUsage")
 dependencies {
     // Compose BOM and dependencies
     implementation(platform(libs.androidx.compose.bom)) // Version "2025.06.00" from toml
