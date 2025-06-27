@@ -36,6 +36,7 @@ jobs:
             app/build/outputs/apk/**/*.apk
             app/build/outputs/apk/*/*.apk
             app/build/outputs/**/apk/**/*.apk
+            app/build/outputs
 
       - name: Upload Build Log
         if: always()
