@@ -7,7 +7,7 @@ pluginManagement {
     }
     // @Suppress("UnstableApiUsage") // No longer needed as libs is not used here
     plugins {
-        id("com.android.application") version "8.6.0"
+        id("com.android.application") version "8.11.0"
         id("org.jetbrains.kotlin.android") version "2.1.21"
         id("com.google.dagger.hilt.android") version "2.56.2"
         id("com.google.devtools.ksp") version "2.1.21-2.0.2"

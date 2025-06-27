@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.18.1)
 # Set project name
 project(language_id_l2c_jni LANGUAGES C CXX)
 
+
 # Set library name
 set(LIBRARY_NAME ${PROJECT_NAME})
 
@@ -35,7 +36,6 @@ target_link_libraries(
 target_compile_definitions(${LIBRARY_NAME} PRIVATE
         $<$<CONFIG:Debug>:DEBUG>
         -DANDROID
-        -D__ANDROID_API__=21
 )
 
 # Set output directories
