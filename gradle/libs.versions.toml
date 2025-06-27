@@ -2,6 +2,11 @@
 agp = "8.14.2"
 kotlin = "2.1.21"
 ksp = "2.1.21-1.0.21"
+hilt = "2.51"
+dagger = "2.51"
+room = "2.7.0"
+moshiKotlin = "1.15.1"
+moshiAdapters = "1.15.1"
 composeBom = "2025.06.00"
 firebaseBom = "33.15.0"
 
