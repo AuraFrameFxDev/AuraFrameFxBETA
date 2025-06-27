@@ -27,13 +27,18 @@ jobs:
       - name: Build APK (assembleDebug)
         run: ./gradlew :app:assembleDebug --stacktrace | tee build-output.log
 
-      - name: Upload APK(s)
+      - name: Upload ALL APKs (any variant)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
-          path: app/build/outputs
+          name: all-apks
+          path: |
+            app/build/outputs/apk/**/*.apk
+            app/build/outputs/apk/*/*.apk
+            app/build/outputs/**/apk/**/*.apk
 
       - name: Upload Build Log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-output-log
