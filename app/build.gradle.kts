@@ -56,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
+        kotlinCompilerExtensionVersion = "1.5.12" // Updated for Kotlin 2.0.0
     }
 
     packaging {
@@ -77,7 +77,15 @@ android {
 
     sourceSets {
         getByName("main") {
-            java.srcDirs("build/generated/source/openapi/src/main/java")
+            // The following path might be from an older setup or a default plugin configuration.
+            // Commenting out to prioritize explicitly defined generator task outputs.
+            // java.srcDirs("build/generated/source/openapi/src/main/java")
+
+            // Add source directory for the custom 'generateJavaClient' task
+            java.srcDirs.srcDir("${layout.buildDirectory.get().asFile}/generated/java/src/main/java")
+
+            // Add source directory for the 'openApiGenerate' (Kotlin client) task
+            kotlin.srcDirs.srcDir("${layout.buildDirectory.get().asFile}/generated/kotlin/src/main/kotlin")
         }
     }
 }

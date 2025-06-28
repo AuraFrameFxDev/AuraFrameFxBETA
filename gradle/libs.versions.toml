@@ -1,18 +1,18 @@
 [versions]
-agp = "8.1.4"
-kotlin = "1.9.23" # Aligned with Compose Compiler 1.5.11
-ksp = "1.9.23-1.0.19" # Latest KSP for Kotlin 1.9.23
-composeBom = "2024.05.00" # Check if this BOM is compatible with Compose 1.5.11 based libraries
+agp = "8.4.1" # Updated
+kotlin = "2.0.0" # Updated
+ksp = "2.0.0-1.0.21" # Updated
+composeBom = "2024.05.00"
 firebaseBom = "33.15.0"
-hilt = "2.51"
+hilt = "2.56.2" # Updated
 cmake = "3.22.1"
 ndk = "26.2.11394342"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 lifecycle = "2.8.4"
-activityCompose = "1.9.1"
+activityCompose = "1.9.1" # May need update for newer Compose/Kotlin
 navigation = "2.7.7"
-room = "2.7.0"
+room = "2.7.0" # Already 2.7.0
 workManager = "2.9.0"
 datastore = "1.1.1"
 securityCrypto = "1.1.0-alpha06"
