@@ -1,11 +1,11 @@
 [versions]
-agp = "8.4.1"
-kotlin = "2.2.0"
-ksp = "2.2.0-1.0.21"
-hilt = "2.51.1"
-dagger = "2.51.1"
+agp = "8.14.2"
+kotlin = "2.1.21"
+ksp = "2.1.21-1.0.21" # must match Kotlin version
 composeBom = "2025.06.00"
 firebaseBom = "33.15.0"
+hilt = "2.51"
+dagger = "2.51"
 googleServicesPlugin = "4.4.2"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
@@ -15,19 +15,19 @@ navigation = "2.7.7"
 room = "2.7.0"
 workManager = "2.9.0"
 datastore = "1.1.1"
-securityCrypto = "1.1.0" # stable release now available
+securityCrypto = "1.1.0-alpha06"
 multidex = "2.0.1"
 hiltNavigationCompose = "1.2.0"
 openApiGeneratorTool = "7.6.0"
-ndk = "26.3.11579264"
-cmake = "3.29.0"
-junit = "5.10.2"
+ndk = "26.2.11394342"
+cmake = "3.22.1"
+junit = "4.13.2"
 kotlinxCoroutinesTest = "1.8.1"
 androidxArchCoreTesting = "2.2.0"
 mockk = "1.13.10"
 androidxTestExtJunit = "1.2.1"
 espressoCore = "3.6.1"
-coilCompose = "2.7.0"
+coilCompose = "2.6.0"
 accompanistPermissions = "0.34.0"
 accompanistSystemUIController = "0.34.0"
 moshiKotlin = "1.15.1"
@@ -46,7 +46,7 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
 
-# Compose BOM and modules
+# Compose Bill of Materials (BOM)
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -84,7 +84,7 @@ jakewharton-retrofit2-kotlinx-serialization-converter = { group = "com.jakewhart
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
-# Firebase BOM and modules
+# Firebase Bill of Materials (BOM)
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
