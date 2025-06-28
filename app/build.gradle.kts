@@ -8,7 +8,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
-    id("org.openapi.generator") version "7.14.0"
+    id("org.openapi.generator") version "7.14.0"         
 }
 
 android {
@@ -82,40 +82,42 @@ android {
     }
 }
 
-// ---- OpenAPI & Codegen tasks (unchanged) ----
-
+// Generate TypeScript client
 tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("typescript-fetch")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/typescript")
-
-    configOptions.set(mapOf(
-        "npmName" to "@auraframefx/api-client",
-        "npmVersion" to "1.0.0",
-        "supportsES6" to "true",
-        "withInterfaces" to "true",
-        "typescriptThreePlus" to "true"
-    ))
+    configOptions.set(
+        mapOf(
+            "npmName" to "@auraframefx/api-client",
+            "npmVersion" to "1.0.0",
+            "supportsES6" to "true",
+            "withInterfaces" to "true",
+            "typescriptThreePlus" to "true"
+        )
+    )
 }
 
+// Generate Java client
 tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("java")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/java")
-
-    configOptions.set(mapOf(
-        "library" to "retrofit2",
-        "serializationLibrary" to "gson",
-        "dateLibrary" to "java8",
-        "java8" to "true",
-        "useRxJava2" to "false"
-    ))
-
+    configOptions.set(
+        mapOf(
+            "library" to "retrofit2",
+            "serializationLibrary" to "gson",
+            "dateLibrary" to "java8",
+            "java8" to "true",
+            "useRxJava2" to "false"
+        )
+    )
     apiPackage.set("dev.aurakai.auraframefx.java.api")
     modelPackage.set("dev.aurakai.auraframefx.java.model")
     invokerPackage.set("dev.aurakai.auraframefx.java.client")
 }
 
+// OpenAPI Generator: Generate Kotlin client from OpenAPI spec
 tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
     generatorName.set("kotlin")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -123,22 +125,27 @@ tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openAp
     apiPackage.set("dev.aurakai.auraframefx.api")
     modelPackage.set("dev.aurakai.auraframefx.api.model")
     invokerPackage.set("dev.aurakai.auraframefx.api.invoker")
-    configOptions.set(mapOf(
-        "dateLibrary" to "java8",
-        "serializationLibrary" to "kotlinx_serialization"
-    ))
+    configOptions.set(
+        mapOf(
+            "dateLibrary" to "java8",
+            "serializationLibrary" to "kotlinx_serialization"
+        )
+    )
 }
 
+// Generate Python client (for AI backend)
 val generatePythonClient by tasks.registering(org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("python")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/python")
-    configOptions.set(mapOf(
-        "packageName" to "auraframefx_api_client"
-    ))
+    configOptions.set(
+        mapOf(
+            "packageName" to "auraframefx_api_client"
+        )
+    )
 }
 
-// Ensure codegen runs before build
+// Configure tasks to run generation before compilation
 tasks.named("preBuild") {
     dependsOn(
         "generateTypeScriptClient",
@@ -165,6 +172,7 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.security.crypto.ktx)
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
@@ -224,7 +232,7 @@ dependencies {
     // System UI Controller
     implementation(libs.google.accompanist.systemuicontroller)
 
-    // Other JSON/Serialization libs
+    // Generated OpenAPI clients / Other JSON libs
     implementation(libs.squareup.moshi.kotlin)
     implementation(libs.squareup.moshi.adapters)
     implementation(libs.google.code.gson)
