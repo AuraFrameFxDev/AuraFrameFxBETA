@@ -1,18 +1,18 @@
 [versions]
-agp = "8.4.1" # Updated
-kotlin = "2.0.0" # Updated
-ksp = "2.0.0-1.0.21" # Updated
+agp = "8.4.1"
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.21"
 composeBom = "2024.05.00"
 firebaseBom = "33.15.0"
-hilt = "2.51.1" # Updated to stable
+hilt = "2.56.2" # User-specified advanced version
 cmake = "3.22.1"
 ndk = "26.2.11394342"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 lifecycle = "2.8.4"
-activityCompose = "1.9.1" # May need update for newer Compose/Kotlin
+activityCompose = "1.9.1" # May need update for Kotlin 2.0 / Compose 1.5.12
 navigation = "2.7.7"
-room = "2.6.1" # Updated to stable
+room = "2.7.0" # User-specified advanced version (already was 2.7.0)
 workManager = "2.9.0"
 datastore = "1.1.1"
 securityCrypto = "1.1.0-alpha06"
@@ -36,7 +36,7 @@ retrofitKotlinxSerializationConverter = "1.0.0"
 kotlinxSerializationJson = "1.6.3"
 kotlinxDatetime = "0.5.0"
 guava = "33.2.0-android"
-windowExtensions = "1.2.0" # Updated from 1.0.0
+windowExtensions = "1.2.0" # Updated
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
