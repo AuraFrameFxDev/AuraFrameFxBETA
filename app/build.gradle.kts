@@ -155,7 +155,7 @@ tasks.named("clean") {
     }
 }
 
-dependencies {
+ependencies {
     // Compose BOM and dependencies
     implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -165,6 +165,7 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.animation.tooling) // For ComposeAnimatedProperty
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
@@ -206,8 +207,8 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
 
-    // Security Crypto KTX (direct version, latest as of June 2024)
-    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
+    // Security Crypto KTX (correct version!)
+    implementation(libs.androidx.security.crypto.ktx)
 
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
@@ -228,6 +229,12 @@ dependencies {
     implementation(libs.squareup.moshi.kotlin)
     implementation(libs.squareup.moshi.adapters)
     implementation(libs.google.code.gson)
+
+    // Guava for ListenableFuture
+    implementation(libs.guava)
+
+    // AndroidX Window Extensions for Split rules
+    implementation(libs.androidx.window.extensions)
 
     // LSPosed/Xposed (for root features)
     compileOnly(files("${rootProject.projectDir}/Libs/api-82.jar"))
