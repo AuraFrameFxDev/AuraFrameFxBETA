@@ -8,7 +8,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
-    id("org.openapi.generator") version "7.6.0"
+    id("org.openapi.generator") version "7.14.0"
 }
 
 android {
@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        minSdk = 31
+        minSdk = 33
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -57,7 +57,8 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
-    }
+    
+}
 
     packaging {
         resources {
