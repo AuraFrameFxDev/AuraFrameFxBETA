@@ -4,11 +4,11 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         maven { url = uri("https://androidx.dev/storage/compose-compiler/repository/") } // For K2 Compose Compiler
-        // maven { url = uri("https://plugins.gradle.org/m2/") } // This was for testing, gradlePluginPortal() is preferred
+        maven { url = uri("https://plugins.gradle.org/m2/") } // This was for testing, gradlePluginPortal() is preferred
     }
     
     plugins {
-        id("com.android.application") version "8.4.1" // Target AGP
+        id("com.android.application") version "8.6.0" // Target AGP
         id("org.jetbrains.kotlin.android") version "2.0.0" // Target Kotlin
         id("com.google.dagger.hilt.android") version "2.56.2" // Target Hilt
         id("com.google.devtools.ksp") version "2.0.0-1.0.21" // Target KSP
@@ -26,11 +26,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // Add JitPack here
         maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "AuraFrameFX"
 
-include(":app")
+include:("app")
