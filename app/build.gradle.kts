@@ -8,7 +8,8 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
-    id("org.openapi.generator") version "7.14.0"
+    id("org.openapi.generator") version "7.14.0"         
+    id("androidx.security:security-crypto-ktx") version "1.1.0"
 }
 
 android {
