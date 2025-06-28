@@ -1,8 +1,8 @@
 [versions]
 agp = "8.1.4"
-kotlin = "2.1.21"
-ksp = "2.1.21-1.0.21"
-composeBom = "2024.05.00"
+kotlin = "1.9.23" # Aligned with Compose Compiler 1.5.11
+ksp = "1.9.23-1.0.19" # Latest KSP for Kotlin 1.9.23
+composeBom = "2024.05.00" # Check if this BOM is compatible with Compose 1.5.11 based libraries
 firebaseBom = "33.15.0"
 hilt = "2.51"
 cmake = "3.22.1"
@@ -36,7 +36,7 @@ retrofitKotlinxSerializationConverter = "1.0.0"
 kotlinxSerializationJson = "1.6.3"
 kotlinxDatetime = "0.5.0"
 guava = "33.2.0-android"
-windowExtensions = "1.0.0"
+windowExtensions = "1.2.0" # Updated from 1.0.0
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

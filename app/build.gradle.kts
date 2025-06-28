@@ -8,7 +8,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
-    id("org.openapi.generator") version "7.14.0"
+    id("org.openapitools.generator") // Version managed by settings.gradle.kts
 }
 
 android {
@@ -41,12 +41,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "21"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -155,7 +155,7 @@ tasks.named("clean") {
     }
 }
 
-ependencies {
+dependencies {
     // Compose BOM and dependencies
     implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
