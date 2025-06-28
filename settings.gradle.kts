@@ -3,6 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://androidx.dev/storage/compose-compiler/repository/") } // For K2 Compose Compiler
         // maven { url = uri("https://plugins.gradle.org/m2/") } // This was for testing, gradlePluginPortal() is preferred
     }
     
@@ -16,7 +17,7 @@ pluginManagement {
         id("com.google.gms.google-services") version "4.4.2" // Unchanged
         id("com.google.firebase.crashlytics") version "2.9.9" // Unchanged
         id("com.google.firebase.firebase-perf") version "1.4.2" // Unchanged
-        id("org.jetbrains.kotlin.plugin.compose") version "1.5.12" // Target Compose Compiler for Kotlin 2.0.0
+        id("org.jetbrains.kotlin.plugin.compose") version "2.0.0-beta03" // K2-compatible Compose Compiler
     }
 }
 

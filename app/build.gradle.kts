@@ -56,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.12" // For Kotlin 2.0.0
+        kotlinCompilerExtensionVersion = "2.0.0-beta03" // K2-compatible
     }
 
     packaging {
