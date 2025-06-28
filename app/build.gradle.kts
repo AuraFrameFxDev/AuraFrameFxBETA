@@ -56,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.12" // Updated for Kotlin 2.0.0
+        kotlinCompilerExtensionVersion = "1.5.12" // For Kotlin 2.0.0
     }
 
     packaging {
