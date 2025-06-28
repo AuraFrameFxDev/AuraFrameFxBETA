@@ -8,8 +8,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
-    id("org.openapi.generator") version "7.14.0"         
-
+    id("org.openapi.generator") version "7.14.0"
 }
 
 android {
@@ -58,8 +57,7 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
-    
-}
+    }
 
     packaging {
         resources {
@@ -84,7 +82,8 @@ android {
     }
 }
 
-// Generate TypeScript client
+// ---- OpenAPI & Codegen tasks (unchanged) ----
+
 tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("typescript-fetch")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -99,7 +98,6 @@ tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plu
     ))
 }
 
-// Generate Java client
 tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("java")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -118,7 +116,6 @@ tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.ta
     invokerPackage.set("dev.aurakai.auraframefx.java.client")
 }
 
-// OpenAPI Generator: Generate Kotlin client from OpenAPI spec
 tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
     generatorName.set("kotlin")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -132,7 +129,6 @@ tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openAp
     ))
 }
 
-// Generate Python client (for AI backend)
 val generatePythonClient by tasks.registering(org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("python")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -142,7 +138,7 @@ val generatePythonClient by tasks.registering(org.openapitools.generator.gradle.
     ))
 }
 
-// Configure tasks to run generation before compilation
+// Ensure codegen runs before build
 tasks.named("preBuild") {
     dependsOn(
         "generateTypeScriptClient",
@@ -170,12 +166,12 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.runtime.livedata)
 
-implementation(libs.androidx.security.crypto.ktx)
-
-  // Core Android dependencies implementation(libs.androidx.core.ktx)
+    // Core Android dependencies
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-implementation(libs.androidx.appcompat) implementation(libs.androidx.multidex)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.multidex)
 
     // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -183,8 +179,7 @@ implementation(libs.androidx.appcompat) implementation(libs.androidx.multidex)
     implementation(libs.androidx.navigation.compose)
 
     // Hilt Dependency Injection
-implementation(libs.hilt.android)
-    // kapt(libs.hilt.compiler) // Switching to KSP for Hilt
+    implementation(libs.hilt.android)
     add("ksp", libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
@@ -229,7 +224,7 @@ implementation(libs.hilt.android)
     // System UI Controller
     implementation(libs.google.accompanist.systemuicontroller)
 
-    // Generated OpenAPI clients / Other JSON libs
+    // Other JSON/Serialization libs
     implementation(libs.squareup.moshi.kotlin)
     implementation(libs.squareup.moshi.adapters)
     implementation(libs.google.code.gson)
