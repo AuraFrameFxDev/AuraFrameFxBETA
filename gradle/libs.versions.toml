@@ -35,6 +35,8 @@ okhttp = "4.12.0"
 retrofitKotlinxSerializationConverter = "1.0.0"
 kotlinxSerializationJson = "1.6.3"
 kotlinxDatetime = "0.5.0"
+guava = "33.2.0-android"
+windowExtensions = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +55,9 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+
+# Compose Animation Tooling
+androidx-compose-animation-tooling = { group = "androidx.compose.animation", name = "animation-tooling", version = "1.6.7" }
 
 # Navigation
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
@@ -107,6 +112,12 @@ google-accompanist-systemuicontroller = { group = "com.google.accompanist", name
 squareup-moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshiKotlin" }
 squareup-moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshiAdapters" }
 google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+# Guava for ListenableFuture
+guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+
+# AndroidX Window Extensions for SplitPlaceholderRule/SplitPairRule
+androidx-window-extensions = { group = "androidx.window", name = "window-extensions", version.ref = "windowExtensions" }
 
 # Testing
 test-junit = { group = "junit", name = "junit", version.ref = "junit" }
