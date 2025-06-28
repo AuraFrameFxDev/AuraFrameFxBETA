@@ -9,7 +9,7 @@ pluginManagement {
     plugins {
         id("com.android.application") version "8.4.1" // Updated AGP
         id("org.jetbrains.kotlin.android") version "2.0.0" // Updated Kotlin
-        id("com.google.dagger.hilt.android") version "2.56.2" // User-specified Hilt
+        id("com.google.dagger.hilt.android") version "2.51.1" // Updated Hilt to stable
         id("com.google.devtools.ksp") version "2.0.0-1.0.21" // Updated KSP for Kotlin 2.0.0
         id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0" // Updated Kotlin Serialization
         id("org.openapitools.generator") version "7.6.0" // Unchanged
