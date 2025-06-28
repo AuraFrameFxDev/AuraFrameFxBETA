@@ -171,14 +171,11 @@ dependencies {
     implementation(libs.androidx.compose.runtime.livedata)
 
 implementation(libs.androidx.security.crypto.ktx)
-}
 
-    // Core Android dependencies
-    implementation(libs.androidx.core.ktx)
+  // Core Android dependencies implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.multidex)
+implementation(libs.androidx.appcompat) implementation(libs.androidx.multidex)
 
     // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -186,7 +183,7 @@ implementation(libs.androidx.security.crypto.ktx)
     implementation(libs.androidx.navigation.compose)
 
     // Hilt Dependency Injection
-    implementation(libs.hilt.android)
+implementation(libs.hilt.android)
     // kapt(libs.hilt.compiler) // Switching to KSP for Hilt
     add("ksp", libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
