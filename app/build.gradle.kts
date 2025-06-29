@@ -1,14 +1,15 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("com.google.devtools.ksp")
-    id("org.openapitools.generator") // Version managed by settings.gradle.kts
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCrashlytics)
+    alias(libs.plugins.firebasePerf)
+    // Jetpack Compose plugin is not explicitly applied here;
+    // relying on Kotlin 2.0 + buildFeatures.compose = true
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.openapitoolsGenerator)
 }
 
 android {
@@ -45,19 +46,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-
     buildFeatures {
         compose = true
         buildConfig = true
         viewBinding = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "2.0.0-beta03" // K2-compatible
-    }
+    // composeOptions {
+    //     kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get() // Use version from TOML
+    // } // Removed based on clue: compiler capabilities might be classpath-included
 
     packaging {
         resources {
