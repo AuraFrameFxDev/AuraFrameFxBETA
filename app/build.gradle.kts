@@ -33,24 +33,8 @@ android {
         jvmToolchain(21)
     }
 }
-
 dependencies {
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.lifecycle.runtime.ktx)
-
-    // Room
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
-
-repositories {
-    google()
-    mavenCentral()
-    // Add other repositories only if you have special needs
-}
-
-dependencies {
+  dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
@@ -70,4 +54,12 @@ dependencies {
 
     // Compose Material Icons (optional)
     implementation("androidx.compose.material:material-icons-extended:1.6.2")
+
 }
+
+repositories {
+    google()
+    mavenCentral()
+    // Add other repositories only if you have special needs
+}
+
