@@ -1,6 +1,10 @@
 // Top-level build file.
 // Plugin versions are managed in settings.gradle.kts within the pluginManagement block,
 // which refers to gradle/libs.versions.toml.
+repositories {
+    google()
+    mavenCentral()
+}
 
 plugins {
     id("com.android.application") apply false
