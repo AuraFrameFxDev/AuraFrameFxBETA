@@ -27,3 +27,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AuraFrameFX"
+include(":app")
