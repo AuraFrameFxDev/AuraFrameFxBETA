@@ -22,8 +22,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+}
 
 rootProject.name = "AuraFrameFxBETA"
-include(":app")
+nclude(":app"){
+
+}
+
 
 
