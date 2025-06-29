@@ -1,4 +1,5 @@
 plugins {
+
     id("com.android.application")version("8.11.0")
     id("org.jetbrains.kotlin.android")version("2.1.21")
     id("com.google.devtools.ksp")version("2.1.21-2.0.2")
@@ -9,6 +10,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")version("2.1.0")
     id("org.openapi.generator")version("7.14.0")
     id("com.google.dagger.hilt.android")version("2.56.2")
+
+
 
 android {
     namespace = "dev.aurakai.auraframefx"
@@ -21,10 +24,11 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
         vectorDrawables {
             useSupportLibrary = true
         }
-        signingConfig = signingConfigs.getByName("debug")
+
     }
 
     buildTypes {
@@ -42,8 +46,13 @@ android {
 
     kotlin {
         jvmToolchain(21)
+
     }
 
+    buildFeatures {
+        compose = true
+
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
     }
@@ -55,11 +64,17 @@ android {
 
     sourceSets.getByName("main") {
         java.srcDir("${layout.buildDirectory.get().asFile}/generated/kotlin/src/main/java")
+
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_21.toString()
+>
     }
     ndkVersion = "26.2.11394342"
 }
 
-tasks(register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+
     generatorName.set("typescript-fetch")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/typescript")
@@ -180,3 +195,5 @@ dependencies {
     androidTestImplementation(libs.androidTest.androidx.test.rules)
     androidTestImplementation(libs.androidTest.androidx.test.runner)
     androidTestImplementation(libs.androidTest.androidx.test.core))
+
+

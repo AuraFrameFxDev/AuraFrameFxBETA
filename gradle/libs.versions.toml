@@ -9,6 +9,7 @@ hilt = "2.56.2" # Using a consistent, recent version
 openapiGenerator = "7.6.0"
 googleServices = "4.4.3"
 firebaseCrashlytics = "3.0.4" # Matches the hardcoded version
+
 firebasePerf = "1.4.2"
 coreKtx = "1.16.0"
 appcompat = "1.7.1"
