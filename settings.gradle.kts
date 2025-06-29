@@ -25,9 +25,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AuraFrameFxBETA"
-nclude(":app"){
+include(":app")
 
-}
 
 
 
