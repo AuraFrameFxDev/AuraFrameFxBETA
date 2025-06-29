@@ -14,6 +14,8 @@ pluginManagement {
         id("com.google.gms.google-services") version "4.4.3" apply false
         id("com.google.firebase.crashlytics") version "3.0.4" apply false
         id("com.google.firebase.firebase-perf") version "1.4.2" apply false
+        id("org.openapi.generator") version "7.14.0" apply false
+        id("org.jetbrains.kotlin.jvm") version "2.1.21" apply false
     }
 }
 
@@ -25,5 +27,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AuraFrameFX"
-include(":app")
 include(":app", ":openapi-codegen")
