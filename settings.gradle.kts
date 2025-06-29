@@ -26,3 +26,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AuraFrameFX"
 include(":app")
+include(":app", ":openapi-codegen")
