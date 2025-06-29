@@ -6,7 +6,6 @@ compose-bom = "2025.06.01"
 compose-compiler = "2.2.0"
 firebase-bom = "33.16.0"
 hilt = "2.56.2"
-openapi-generator = "7.6.0"
 google-services = "4.4.3"
 firebase-crashlytics = "3.0.4"
 firebase-perf = "1.4.2"
@@ -48,6 +47,8 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version = "1.8.3" }
+androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-compose-animation-tooling = { group = "androidx.compose.animation", name = "animation-tooling" }
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
@@ -89,15 +90,3 @@ test-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 androidTest-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidTest-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-
-[plugins]
-agp = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-openapi-generator = { id = "org.openapitools.generator", version.ref = "openapi-generator" }
-google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
-firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-perf" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "compose-compiler" }
