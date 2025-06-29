@@ -1,14 +1,15 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
-    // id("org.jetbrains.kotlin.plugin.compose") // Removed based on clue: compiler capabilities might be classpath-included
-    id("com.google.devtools.ksp")
-    id("org.openapitools.generator") // Version managed by settings.gradle.kts
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCrashlytics)
+    alias(libs.plugins.firebasePerf)
+    // Jetpack Compose plugin is not explicitly applied here;
+    // relying on Kotlin 2.0 + buildFeatures.compose = true
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.openapitoolsGenerator)
 }
 
 android {

@@ -1,20 +1,30 @@
+# This file is used to declare all dependency versions and plugin versions centrally.
+# Read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog-format
+
 [versions]
 agp = "8.4.1"
 kotlin = "2.0.0"
-ksp = "2.0.0-1.0.21"
-# composeCompiler = "2.0.0-beta03" # REMOVED - Relying on implicit compiler from Kotlin 2.0 + buildFeatures.compose
-openapiGenerator = "7.6.0" # Added for OpenAPI Generator plugin
+kspVersion = "2.0.0-1.0.21" # Renamed from ksp
+openapiGeneratorVersion = "7.6.0" # Renamed from openapiGenerator
+hiltVersion = "2.56.2" # Renamed from hilt, User-specified advanced version
+room = "2.7.0" # User-specified advanced version
+windowExtensions = "1.2.0"
+
+# Plugin-specific versions (if not covered by broader categories like kotlin, agp, hiltVersion)
+googleServicesPluginVersion = "4.4.2"
+firebaseCrashlyticsPluginVersion = "2.9.9"
+firebasePerfPluginVersion = "1.4.2"
+
+# Library versions
 composeBom = "2024.05.00"
 firebaseBom = "33.15.0"
-hilt = "2.56.2" # User-specified advanced version
 cmake = "3.22.1"
 ndk = "26.2.11394342"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 lifecycle = "2.8.4"
-activityCompose = "1.9.1" # May need update for Kotlin 2.0 / Compose 1.5.12
+activityCompose = "1.9.1" # May need update for Kotlin 2.0 / Compose (using BOM)
 navigation = "2.7.7"
-room = "2.7.0" # User-specified advanced version (already was 2.7.0)
 workManager = "2.9.0"
 datastore = "1.1.1"
 securityCrypto = "1.1.0-alpha06"
@@ -38,7 +48,7 @@ retrofitKotlinxSerializationConverter = "1.0.0"
 kotlinxSerializationJson = "1.6.3"
 kotlinxDatetime = "0.5.0"
 guava = "33.2.0-android"
-windowExtensions = "1.2.0" # Updated
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -57,9 +67,7 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-
-# Compose Animation Tooling
-androidx-compose-animation-tooling = { group = "androidx.compose.animation", name = "animation-tooling", version = "1.6.7" }
+androidx-compose-animation-tooling = { group = "androidx.compose.animation", name = "animation-tooling", version = "1.6.7" } # Example of a direct version
 
 # Navigation
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
@@ -67,8 +75,8 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 # Hilt & Dagger
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltVersion" } # Updated ref
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltVersion" } # Updated ref
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 # Room
@@ -86,7 +94,7 @@ jakewharton-retrofit2-kotlinx-serialization-converter = { group = "com.jakewhart
 jetbrains-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
-# Firebase BOM and dependencies (the BOM controls other Firebase versions)
+# Firebase BOM and dependencies
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
@@ -110,7 +118,7 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 google-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistPermissions" }
 google-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanistSystemUIController" }
 
-# Other JSON/Serialization libs (Moshi, Gson)
+# Other JSON/Serialization libs
 squareup-moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshiKotlin" }
 squareup-moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshiAdapters" }
 google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
@@ -118,7 +126,7 @@ google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref 
 # Guava for ListenableFuture
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 
-# AndroidX Window Extensions for SplitPlaceholderRule/SplitPairRule
+# AndroidX Window Extensions
 androidx-window-extensions = { group = "androidx.window", name = "window-extensions", version.ref = "windowExtensions" }
 
 # Testing
@@ -128,3 +136,21 @@ test-androidx-arch-core = { group = "androidx.arch.core", name = "core-testing",
 test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 androidTest-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestExtJunit" }
 androidTest-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" } # Uses hiltVersion
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" } # Uses kspVersion
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+openapitoolsGenerator = { id = "org.openapitools.generator", version.ref = "openapiGeneratorVersion" } # Uses openapiGeneratorVersion
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServicesPluginVersion" }
+firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPluginVersion" }
+firebasePerf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPluginVersion" }
+# Jetpack Compose plugin is not explicitly added here as we rely on Kotlin 2.0 + buildFeatures.compose = true
+
+# To use a plugin from this catalog, in your module's build.gradle.kts:
+# plugins {
+#   alias(libs.plugins.androidApplication)
+# }
