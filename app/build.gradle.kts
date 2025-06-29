@@ -8,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
+    id("org.openapi.generator") version "7.14.0"
 }
 
 android {
@@ -64,7 +65,28 @@ android {
         }
     }
 }
+openApiGenerate {
+    generatorName.set("kotlin")
+    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml") // adjust if needed
+    outputDir.set("$buildDir/generated")
+    apiPackage.set("dev.aurakai.auraframefx.api")
+    modelPackage.set("dev.aurakai.auraframefx.api.model")
+    invokerPackage.set("dev.aurakai.auraframefx.api.invoker")
+    configOptions.set(
+        mapOf(
+            "dateLibrary" to "java8",
+            "serializationLibrary" to "kotlinx_serialization"
+        )
+    )
+}
 
+// Make sure generated code is included as a source set
+android.sourceSets["main"].java.srcDir("$buildDir/generated/src/main/kotlin")
+
+// Ensure code is generated before compile
+tasks.named("compileKotlin") {
+    dependsOn("openApiGenerate")
+}
 dependencies {
     // Compose & UI
     implementation(platform(libs.androidx.compose.bom))
