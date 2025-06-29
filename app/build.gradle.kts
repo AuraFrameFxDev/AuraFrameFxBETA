@@ -6,7 +6,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
-    id("org.jetbrains.kotlin.plugin.compose")
+    // id("org.jetbrains.kotlin.plugin.compose") // Removed based on clue: compiler capabilities might be classpath-included
     id("com.google.devtools.ksp")
     id("org.openapitools.generator") // Version managed by settings.gradle.kts
 }
@@ -45,19 +45,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-
     buildFeatures {
         compose = true
         buildConfig = true
         viewBinding = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get() // Use version from TOML
-    }
+    // composeOptions {
+    //     kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get() // Use version from TOML
+    // } // Removed based on clue: compiler capabilities might be classpath-included
 
     packaging {
         resources {
