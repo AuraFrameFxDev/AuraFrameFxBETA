@@ -65,25 +65,72 @@ android {
         }
     }
 }
-openApiGenerate {
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+// TypeScript client generator
+tasks.register<GenerateTask>("generateTypeScriptClient") {
+    generatorName.set("typescript-fetch")
+    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
+    outputDir.set("$buildDir/generated/typescript")
+    configOptions.set(mapOf(
+        "npmName" to "@auraframefx/api-client",
+        "npmVersion" to "1.0.0",
+        "supportsES6" to "true",
+        "withInterfaces" to "true",
+        "typescriptThreePlus" to "true"
+    ))
+}
+
+// Java client generator
+tasks.register<GenerateTask>("generateJavaClient") {
+    generatorName.set("java")
+    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
+    outputDir.set("$buildDir/generated/java")
+    apiPackage.set("dev.aurakai.auraframefx.java.api")
+    modelPackage.set("dev.aurakai.auraframefx.java.model")
+    invokerPackage.set("dev.aurakai.auraframefx.java.client")
+    configOptions.set(mapOf(
+        "library" to "retrofit2",
+        "serializationLibrary" to "gson",
+        "dateLibrary" to "java8",
+        "java8" to "true",
+        "useRxJava2" to "false"
+    ))
+}
+
+// Python client generator
+tasks.register<GenerateTask>("generatePythonClient") {
+    generatorName.set("python")
+    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
+    outputDir.set("$buildDir/generated/python")
+    configOptions.set(mapOf(
+        "packageName" to "auraframefx_api_client"
+    ))
+}
+
+// Kotlin client generator (main Android code)
+tasks.register<GenerateTask>("openApiGenerate") {
     generatorName.set("kotlin")
-    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml") // adjust if needed
-    outputDir.set("$buildDir/generated")
+    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
+    outputDir.set("$buildDir/generated/kotlin")
     apiPackage.set("dev.aurakai.auraframefx.api")
     modelPackage.set("dev.aurakai.auraframefx.api.model")
     invokerPackage.set("dev.aurakai.auraframefx.api.invoker")
-    configOptions.set(
-        mapOf(
-            "dateLibrary" to "java8",
-            "serializationLibrary" to "kotlinx_serialization"
-        )
-    )
+    configOptions.set(mapOf(
+        "dateLibrary" to "java8",
+        "serializationLibrary" to "kotlinx_serialization"
+    ))
+    globalProperties.set(mapOf(
+        "library" to "kotlin",
+        "serializationLibrary" to "kotlinx_serialization"
+    ))
+    dependsOn("generateTypeScriptClient", "generateJavaClient", "generatePythonClient")
 }
 
-// Make sure generated code is included as a source set
-android.sourceSets["main"].java.srcDir("$buildDir/generated/src/main/kotlin")
+// Make sure the generated Kotlin code is included in your main source set
+android.sourceSets["main"].java.srcDir("$buildDir/generated/kotlin/src/main/kotlin")
 
-// Ensure code is generated before compile
+// Ensure Kotlin client is generated before compiling
 tasks.named("compileKotlin") {
     dependsOn("openApiGenerate")
 }
