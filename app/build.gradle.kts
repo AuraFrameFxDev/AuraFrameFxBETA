@@ -56,10 +56,3 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.6.2")
 
 }
-
-repositories {
-    google()
-    mavenCentral()
-    // Add other repositories only if you have special needs
-}
-
