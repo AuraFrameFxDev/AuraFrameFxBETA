@@ -1,29 +1,26 @@
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.openapi.generator") version "7.5.0" // Adjust version as needed
+    id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "dev.aurakai.auraframefx"
-    compileSdk = 36
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        minSdk =33
-        targetSdk = 36
+        minSdk = 24
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
@@ -32,38 +29,22 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        jvmToolchain(17)
     }
-
-    // Add generated sources to the main source set
-    sourceSets["main"].java.srcDir("$projectDir/src/main/java")
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.23")
-    // Add your other dependencies here
-    // implementation("io.ktor:ktor-client-core:2.3.7") // Example
-}
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.lifecycle.runtime.ktx)
 
-// --- OpenAPI Generator Task ---
-import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
-val openApiGenerate by tasks.registering(GenerateTask::class) {
-    generatorName.set("kotlin")
-    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
-    outputDir.set("$projectDir/src/main/java")
-    apiPackage.set("dev.aurakai.auraframefx.api")
-    modelPackage.set("dev.aurakai.auraframefx.model")
-    invokerPackage.set("dev.aurakai.auraframefx.invoker")
-    configOptions.set(
-        mapOf(
-            "dateLibrary" to "java8",
-            "serializationLibrary" to "kotlinx_serialization"
-        )
-    )
-}
-
-tasks.named("preBuild") {
-    dependsOn(openApiGenerate)
+    // Compose (if needed)
+    implementation(platform(libs.compose.bom))
+    // Add other dependencies as needed
 }
