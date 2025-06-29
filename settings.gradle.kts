@@ -13,7 +13,7 @@ pluginManagement {
         id("com.google.dagger.hilt.android") version "2.56.2" // Target Hilt
         id("com.google.devtools.ksp") version "2.0.0-1.0.21" // Target KSP
         id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0" // Target Kotlin Serialization
-        id("org.openapitools.generator") version "7.6.0" // Unchanged
+        id("org.openapitools.generator") version "7.6.0" // Reverted to hardcoded version
         id("com.google.gms.google-services") version "4.4.2" // Unchanged
         id("com.google.firebase.crashlytics") version "2.9.9" // Unchanged
         id("com.google.firebase.firebase-perf") version "1.4.2" // Unchanged
