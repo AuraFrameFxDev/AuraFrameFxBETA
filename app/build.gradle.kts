@@ -1,15 +1,14 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("com.google.devtools.ksp")
-    id("org.openapitools.generator") // Version managed by settings.gradle.kts
-}
+    id("com.android.application")version("8.11.0")
+    id("org.jetbrains.kotlin.android")version("2.1.21")
+    id("com.google.devtools.ksp")version("2.1.21-2.0.2")
+    id("org.jetbrains.kotlin.plugin.serialization")version("2.1.21"
+    id("com.google.gms.google-services")version("4.3.15")
+    id("com.google.firebase.crashlytics")version("2.9.8")
+    id("com.google.firebase.firebase-perf")version("1.4.1")
+    id("org.jetbrains.kotlin.plugin.compose")version("2.1.0")
+    id("org.openapi.generator")version("7.14.0")
+    id("com.google.dagger.hilt.android")version("2.56.2")
 
 android {
     namespace = "dev.aurakai.auraframefx"
@@ -21,22 +20,18 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-
-        ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+        vectorDrawables {
+            useSupportLibrary = true
         }
+        signingConfig = signingConfigs.getByName("debug")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
@@ -45,54 +40,26 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-
-    buildFeatures {
-        compose = true
-        buildConfig = true
-        viewBinding = true
+    kotlin {
+        jvmToolchain(21)
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "2.0.0-beta03" // K2-compatible
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
-
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "/META-INF/*.kotlin_module"
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-            version = libs.versions.cmake.get()
-        }
+    sourceSets.getByName("main") {
+        java.srcDir("${layout.buildDirectory.get().asFile}/generated/kotlin/src/main/java")
     }
-
-    ndkVersion = libs.versions.ndk.get()
-
-    sourceSets {
-        getByName("main") {
-            // The following path might be from an older setup or a default plugin configuration.
-            // Commenting out to prioritize explicitly defined generator task outputs.
-            // java.srcDirs("build/generated/source/openapi/src/main/java")
-
-            // Add source directory for the custom 'generateJavaClient' task
-            java.srcDirs.srcDir("${layout.buildDirectory.get().asFile}/generated/java/src/main/java")
-
-            // Add source directory for the 'openApiGenerate' (Kotlin client) task
-            kotlin.srcDirs.srcDir("${layout.buildDirectory.get().asFile}/generated/kotlin/src/main/kotlin")
-        }
-    }
+    ndkVersion = "26.2.11394342"
 }
 
-// ---- OpenAPI & Codegen tasks (unchanged) ----
-
-tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks(register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("typescript-fetch")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/typescript")
@@ -106,7 +73,7 @@ tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plu
     ))
 }
 
-tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks(register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("java")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/java")
@@ -124,7 +91,7 @@ tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.ta
     invokerPackage.set("dev.aurakai.auraframefx.java.client")
 }
 
-tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
+tasks(named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
     generatorName.set("kotlin")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/kotlin")
@@ -135,8 +102,13 @@ tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openAp
         "dateLibrary" to "java8",
         "serializationLibrary" to "kotlinx_serialization"
     ))
-}
 
+    globalProperties.set(mapOf(
+        "library" to "kotlin",
+        "serializationLibrary" to "kotlinx_serialization"
+    ))
+}){
+    dependsOn("generateTypeScriptClient", "generateJavaClient")
 val generatePythonClient by tasks.registering(org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("python")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -164,99 +136,47 @@ tasks.named("clean") {
 }
 
 dependencies {
-    // Compose BOM and dependencies
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.runtime.livedata)
-    implementation(libs.androidx.compose.animation.tooling) // For ComposeAnimatedProperty
-
-    // Core Android dependencies
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.multidex)
-
-    // Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
-    implementstiom(libs.androidx.hilt.ksp)
-
-    // Hilt Dependency Injection
     implementation(libs.hilt.android)
-    add("ksp", libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-
-    // Room Database
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-
-    // Network - Retrofit & OkHttp
     implementation(libs.squareup.retrofit2.retrofit)
     implementation(libs.squareup.okhttp3.okhttp)
     implementation(libs.squareup.okhttp3.logging.interceptor)
     implementation(libs.jakewharton.retrofit2.kotlinx.serialization.converter)
-
-    // Serialization
     implementation(libs.jetbrains.kotlinx.serialization.json)
-    implementation(libs.jetbrains.kotlinx.datetime)
-
-    // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics.ktx)
     implementation(libs.firebase.crashlytics.ktx)
     implementation(libs.firebase.perf.ktx)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
-
-    // Security Crypto KTX (correct version!)
     implementation(libs.androidx.security.crypto.ktx)
-
-    // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
-
-    // DataStore
     implementation(libs.androidx.datastore.preferences)
-
-    // Image Loading
     implementation(libs.coil.compose)
-
-    // Permissions
     implementation(libs.google.accompanist.permissions)
-
-    // System UI Controller
-    implementation(libs.google.accompanist.systemuicontroller)
-
-    // Other JSON/Serialization libs
-    implementation(libs.squareup.moshi.kotlin)
-    implementation(libs.squareup.moshi.adapters)
-    implementation(libs.google.code.gson)
-
-    // Guava for ListenableFuture
-    implementation(libs.guava)
-
-    // AndroidX Window Extensions for Split rules
-    implementation(libs.androidx.window.extensions)
-
-    // LSPosed/Xposed (for root features)
-    compileOnly(files("${rootProject.projectDir}/Libs/api-82.jar"))
-
-    // Testing dependencies
     testImplementation(libs.test.junit)
     testImplementation(libs.test.kotlinx.coroutines)
-    testImplementation(libs.test.androidx.arch.core)
-    testImplementation(libs.test.mockk)
-
+    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidTest.androidx.test.ext.junit)
     androidTestImplementation(libs.androidTest.espresso.core)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-}
+{
+    exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")}
+    androidTestImplementation(libs.androidTest.androidx.test.rules)
+    androidTestImplementation(libs.androidTest.androidx.test.runner)
+    androidTestImplementation(libs.androidTest.androidx.test.core))
