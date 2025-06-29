@@ -1,15 +1,17 @@
 plugins {
-    id("com.android.application") version "8.11.0"
-    id("org.jetbrains.kotlin.android") version "2.1.21"
-    id("com.google.devtools.ksp") version "2.1.21-2.0.2"
-    id("com.google.dagger.hilt.android") version "2.51.1"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.21"
-    id("com.google.gms.google-services") version "4.3.15"
-    id("com.google.firebase.crashlytics") version "2.9.8"
-    id("com.google.firebase.firebase-perf") version "1.4.2"
-    id("org.jetbrains.kotlin.plugin.compose") version "2.1.21"
-    id("org.openapi.generator") version "7.6.0"
-}
+
+    id("com.android.application")version("8.11.0")
+    id("org.jetbrains.kotlin.android")version("2.1.21")
+    id("com.google.devtools.ksp")version("2.1.21-2.0.2")
+    id("org.jetbrains.kotlin.plugin.serialization")version("2.1.21"
+    id("com.google.gms.google-services")version("4.3.15")
+    id("com.google.firebase.crashlytics")version("2.9.8")
+    id("com.google.firebase.firebase-perf")version("1.4.1")
+    id("org.jetbrains.kotlin.plugin.compose")version("2.1.0")
+    id("org.openapi.generator")version("7.14.0")
+    id("com.google.dagger.hilt.android")version("2.56.2")
+
+
 
 android {
     namespace = "dev.aurakai.auraframefx"
@@ -22,6 +24,11 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+
     }
 
     buildTypes {
@@ -39,10 +46,12 @@ android {
 
     kotlin {
         jvmToolchain(21)
+
     }
 
     buildFeatures {
         compose = true
+
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
@@ -55,13 +64,17 @@ android {
 
     sourceSets.getByName("main") {
         java.srcDir("${layout.buildDirectory.get().asFile}/generated/kotlin/src/main/java")
+
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_21.toString()
+>
     }
+    ndkVersion = "26.2.11394342"
 }
 
 tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+
     generatorName.set("typescript-fetch")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/typescript")
@@ -75,7 +88,7 @@ tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plu
     ))
 }
 
-tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+tasks(register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("java")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/java")
@@ -93,7 +106,7 @@ tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.ta
     invokerPackage.set("dev.aurakai.auraframefx.java.client")
 }
 
-tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
+tasks(named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
     generatorName.set("kotlin")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
     outputDir.set("${layout.buildDirectory.get().asFile}/generated/kotlin")
@@ -104,8 +117,13 @@ tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openAp
         "dateLibrary" to "java8",
         "serializationLibrary" to "kotlinx_serialization"
     ))
-}
 
+    globalProperties.set(mapOf(
+        "library" to "kotlin",
+        "serializationLibrary" to "kotlinx_serialization"
+    ))
+}){
+    dependsOn("generateTypeScriptClient", "generateJavaClient")
 val generatePythonClient by tasks.registering(org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
     generatorName.set("python")
     inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
@@ -172,4 +190,10 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidTest.androidx.test.ext.junit)
     androidTestImplementation(libs.androidTest.espresso.core)
-}
+{
+    exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")}
+    androidTestImplementation(libs.androidTest.androidx.test.rules)
+    androidTestImplementation(libs.androidTest.androidx.test.runner)
+    androidTestImplementation(libs.androidTest.androidx.test.core))
+
+
