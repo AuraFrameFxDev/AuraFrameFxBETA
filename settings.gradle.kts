@@ -10,3 +10,6 @@ pluginManagement {
         // other plugins...
     }
 }
+
+rootProject.name = "AuraFrameFX"
+include(":app")
