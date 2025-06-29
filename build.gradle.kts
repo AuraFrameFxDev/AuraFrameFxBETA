@@ -1,4 +1,3 @@
-
 // Top-level build file.
 // Plugin versions are managed in settings.gradle.kts within the pluginManagement block,
 // which refers to gradle/libs.versions.toml.
@@ -10,7 +9,8 @@ plugins {
     id("com.google.dagger.hilt.android") apply false
     // Other plugins like kotlin-serialization, compose, google-services, firebase-*, openapi-generator
     // are applied directly in the app/build.gradle.kts with their versions
-    
+}
+
 tasks {
     register("clean", Delete::class) {
         delete(rootProject.layout.buildDirectory)
