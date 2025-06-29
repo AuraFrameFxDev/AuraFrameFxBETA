@@ -56,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "2.0.0-beta03" // K2-compatible
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get() // Use version from TOML
     }
 
     packaging {
