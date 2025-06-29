@@ -53,6 +53,6 @@ dependencies {
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
     // Compose Material Icons (optional)
-    implementation("androidx.compose.material:material-icons-extended:1.6.2")
-
+    implementation("androidx.compose.material:material-icons-extended:1.6.2"){
 }
+
