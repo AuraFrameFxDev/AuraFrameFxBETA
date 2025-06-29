@@ -183,6 +183,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementstiom(libs.androidx.hilt.ksp)
 
     // Hilt Dependency Injection
     implementation(libs.hilt.android)

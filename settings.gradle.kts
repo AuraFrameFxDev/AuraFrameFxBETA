@@ -18,6 +18,7 @@ pluginManagement {
         id("com.google.firebase.crashlytics") version "2.9.9"
         id("com.google.firebase.firebase-perf") version "1.4.2"
         // org.jetbrains.kotlin.plugin.compose is intentionally omitted, relying on Kotlin 2.0 + buildFeatures { compose = true }
+
     }
 }
 
@@ -26,11 +27,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // Add JitPack here
         maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "AuraFrameFX"
 
-include(":app")
+include:("app")
