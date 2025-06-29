@@ -11,8 +11,6 @@ plugins {
     // are applied directly in the app/build.gradle.kts with their versions
 }
 
-tasks {
-    register("clean", Delete::class) {
-        delete(rootProject.layout.buildDirectory)
-    }
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }
