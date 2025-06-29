@@ -32,7 +32,7 @@ rootProject.name = "AuraFrameFxBETA"
 include(":app")
 
 tasks.register("clean", Delete::class) {
-    delete(rootProject.layout.buildDirectory)
-}    
+    delete(rootProject.buildDir)
+}
 
 
