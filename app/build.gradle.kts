@@ -1,14 +1,8 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("com.google.devtools.ksp")
-    id("org.openapi.generator") version "7.6.0"
+    kotlin("android")
+    kotlin("kapt")
+    id("org.openapi.generator") version "7.5.0" // Adjust version as needed
 }
 
 android {
@@ -17,17 +11,10 @@ android {
 
     defaultConfig {
         applicationId = "dev.aurakai.auraframefx"
-        minSdk = 31
+        minSdk =33
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-
-        ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
-        }
     }
 
     buildTypes {
@@ -45,207 +32,38 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
-    buildFeatures {
-        compose = true
-        buildConfig = true
-        viewBinding = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
-    }
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "/META-INF/*.kotlin_module"
-        }
-    }
-
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-            version = libs.versions.cmake.get()
-        }
-    }
-
-    ndkVersion = libs.versions.ndk.get()
-
-    sourceSets {
-        getByName("main") {
-            java.srcDirs("build/generated/source/openapi/src/main/java")
-        }
-    }
-}
-
-// Generate TypeScript client
-tasks.register("generateTypeScriptClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
-    generatorName.set("typescript-fetch")
-    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
-    outputDir.set("${layout.buildDirectory.get().asFile}/generated/typescript")
-
-    configOptions.set(mapOf(
-        "npmName" to "@auraframefx/api-client",
-        "npmVersion" to "1.0.0",
-        "supportsES6" to "true",
-        "withInterfaces" to "true",
-        "typescriptThreePlus" to "true"
-    ))
-}
-
-// Generate Java client
-tasks.register("generateJavaClient", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
-    generatorName.set("java")
-    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
-    outputDir.set("${layout.buildDirectory.get().asFile}/generated/java")
-
-    configOptions.set(mapOf(
-        "library" to "retrofit2",
-        "serializationLibrary" to "gson",
-        "dateLibrary" to "java8",
-        "java8" to "true",
-        "useRxJava2" to "false"
-    ))
-
-    apiPackage.set("dev.aurakai.auraframefx.java.api")
-    modelPackage.set("dev.aurakai.auraframefx.java.model")
-    invokerPackage.set("dev.aurakai.auraframefx.java.client")
-}
-
-// OpenAPI Generator: Generate Kotlin client from OpenAPI spec
-tasks.named<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerate") {
-    generatorName.set("kotlin")
-    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
-    outputDir.set("${layout.buildDirectory.get().asFile}/generated/kotlin")
-    apiPackage.set("dev.aurakai.auraframefx.api")
-    modelPackage.set("dev.aurakai.auraframefx.api.model")
-    invokerPackage.set("dev.aurakai.auraframefx.api.invoker")
-    configOptions.set(mapOf(
-        "dateLibrary" to "java8",
-        "serializationLibrary" to "kotlinx_serialization"
-    ))
-}
-
-// Generate Python client (for AI backend)
-val generatePythonClient by tasks.registering(org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
-    generatorName.set("python")
-    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
-    outputDir.set("${layout.buildDirectory.get().asFile}/generated/python")
-    configOptions.set(mapOf(
-        "packageName" to "auraframefx_api_client"
-    ))
-}
-
-// Configure tasks to run generation before compilation
-tasks.named("preBuild") {
-    dependsOn(
-        "generateTypeScriptClient",
-        "generateJavaClient",
-        "openApiGenerate",
-        "generatePythonClient"
-    )
-}
-
-tasks.named("clean") {
-    doLast {
-        delete("${layout.buildDirectory.get().asFile}/generated")
-        delete("$projectDir/src/main/gen")
-    }
+    // Add generated sources to the main source set
+    sourceSets["main"].java.srcDir("$projectDir/src/main/java")
 }
 
 dependencies {
-    // Compose BOM and dependencies
-    implementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.runtime.livedata)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.23")
+    // Add your other dependencies here
+    // implementation("io.ktor:ktor-client-core:2.3.7") // Example
+}
 
-    // Core Android dependencies
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.multidex)
+// --- OpenAPI Generator Task ---
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
-    // Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.navigation.compose)
+val openApiGenerate by tasks.registering(GenerateTask::class) {
+    generatorName.set("kotlin")
+    inputSpec.set("$projectDir/api-spec/aura-framefx-api.yaml")
+    outputDir.set("$projectDir/src/main/java")
+    apiPackage.set("dev.aurakai.auraframefx.api")
+    modelPackage.set("dev.aurakai.auraframefx.model")
+    invokerPackage.set("dev.aurakai.auraframefx.invoker")
+    configOptions.set(
+        mapOf(
+            "dateLibrary" to "java8",
+            "serializationLibrary" to "kotlinx_serialization"
+        )
+    )
+}
 
-    // Hilt Dependency Injection
-    implementation(libs.hilt.android)
-    // kapt(libs.hilt.compiler) // Switching to KSP for Hilt
-    add("ksp", libs.hilt.compiler)
-    implementation(libs.hilt.navigation.compose)
-
-    // Room Database
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    // Network - Retrofit & OkHttp
-    implementation(libs.squareup.retrofit2.retrofit)
-    implementation(libs.squareup.okhttp3.okhttp)
-    implementation(libs.squareup.okhttp3.logging.interceptor)
-    implementation(libs.jakewharton.retrofit2.kotlinx.serialization.converter)
-
-    // Serialization
-    implementation(libs.jetbrains.kotlinx.serialization.json)
-    implementation(libs.jetbrains.kotlinx.datetime)
-
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics.ktx)
-    implementation(libs.firebase.crashlytics.ktx)
-    implementation(libs.firebase.perf.ktx)
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.firestore.ktx)
-
-    // Security
-    implementation(libs.androidx.security.crypto.ktx)
-
-    // WorkManager
-    implementation(libs.androidx.work.runtime.ktx)
-
-    // DataStore
-    implementation(libs.androidx.datastore.preferences)
-
-    // Image Loading
-    implementation(libs.coil.compose)
-
-    // Permissions
-    implementation(libs.google.accompanist.permissions)
-
-    // System UI Controller
-    implementation(libs.google.accompanist.systemuicontroller)
-
-    // Generated OpenAPI clients / Other JSON libs
-    implementation(libs.squareup.moshi.kotlin)
-    implementation(libs.squareup.moshi.adapters)
-    implementation(libs.google.code.gson)
-
-    // LSPosed/Xposed (for root features)
-    compileOnly(files("${rootProject.projectDir}/Libs/api-82.jar"))
-
-    // Testing dependencies
-    testImplementation(libs.test.junit)
-    testImplementation(libs.test.kotlinx.coroutines)
-    testImplementation(libs.test.androidx.arch.core)
-    testImplementation(libs.test.mockk)
-
-    androidTestImplementation(libs.androidTest.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidTest.espresso.core)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+tasks.named("preBuild") {
+    dependsOn(openApiGenerate)
 }
