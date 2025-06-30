@@ -761,7 +761,15 @@ const char *info_language_extensions_default = "INFO" ":" "extensions_default["
                                                #endif
                                                "]";
 
-/*--------------------------------------------------------------------------*/
+/**
+ * @brief References encoded build environment information to prevent optimization.
+ *
+ * Accesses specific characters from string literals containing compiler, platform, architecture, and language standard metadata, ensuring these strings are retained in the compiled binary. Returns the sum of the selected character values as the program's exit code.
+ *
+ * @param argc The number of command-line arguments; used as an index into metadata strings.
+ * @param argv Command-line arguments; ignored.
+ * @return int Sum of selected metadata string character values at index `argc`.
+ */
 
 int main(int argc, char *argv[]) {
     int require = 0;

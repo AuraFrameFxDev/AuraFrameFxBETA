@@ -761,7 +761,15 @@ const char *info_language_extensions_default = "INFO" ":" "extensions_default["
                                                #endif
                                                "]";
 
-/*--------------------------------------------------------------------------*/
+/**
+ * @brief References encoded compiler and platform information to ensure their inclusion in the binary.
+ *
+ * Accesses specific indices of string literals containing compiler, platform, architecture, version, and language standard details, based on the program's argument count. This guarantees that these strings are present in the compiled output for later inspection or extraction.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv The array of command-line argument strings (unused).
+ * @return int The sum of selected character values from the encoded information strings.
+ */
 
 int main(int argc, char *argv[]) {
     int require = 0;
