@@ -8,7 +8,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AmbientMusicService @Inject constructor() : Service() {
-    // TODO: If this service has dependencies to be injected, add them to the constructor.
+    /**
+     * Called when a client attempts to bind to the service.
+     *
+     * This implementation returns `null`, indicating that binding is not supported for this service.
+     *
+     * @return Always returns `null` to indicate that binding is not allowed.
+     */
 
     override fun onBind(_intent: Intent?): IBinder? { // intent -> _intent
         // TODO: Implement binding if needed, otherwise this service cannot be bound.
@@ -17,11 +23,11 @@ class AmbientMusicService @Inject constructor() : Service() {
     }
 
     /**
-     * Handles the start request for the service.
+     * Handles a request to start the service.
      *
-     * Returns `START_NOT_STICKY`, indicating the system should not recreate the service if it is killed.
+     * Always returns `START_NOT_STICKY`, so the system will not recreate the service if it is killed.
      *
-     * @return The start mode for the service.
+     * @return The service start mode, always `START_NOT_STICKY`.
      */
     override fun onStartCommand(_intent: Intent?, _flags: Int, _startId: Int): Int {
         // TODO: Implement service logic for starting the service.
@@ -30,18 +36,18 @@ class AmbientMusicService @Inject constructor() : Service() {
     }
 
     /**
-     * Pauses music playback.
+     * Pauses the current music playback.
      *
-     * This method is intended to halt the current audio stream if playback is active.
+     * Intended to halt audio playback if it is currently active.
      */
     fun pause(): Unit {
         // TODO: Implement pause logic. Reported as unused. Implement or remove.
     }
 
     /**
-     * Resumes music playback.
+     * Resumes music playback if it was previously paused.
      *
-     * This method is intended to continue playback if it was previously paused.
+     * This method is a placeholder and does not currently implement any functionality.
      */
     fun resume(): Unit {
         // TODO: Implement resume logic. Reported as unused. Implement or remove.
@@ -50,31 +56,35 @@ class AmbientMusicService @Inject constructor() : Service() {
     /**
      * Sets the playback volume to the specified level.
      *
-     * @param _volume The desired volume level as a float value.
+     * @param _volume The desired volume level.
      */
     fun setVolume(_volume: Float): Unit {
         // TODO: Reported as unused. Implement or remove.
     }
 
     /**
-     * Enables or disables shuffle mode for music playback.
+     * Sets shuffle mode for music playback.
      *
-     * @param _isShuffling If true, enables shuffle mode; otherwise, disables it.
+     * @param _isShuffling True to enable shuffle mode, false to disable it.
      */
     fun setShuffling(_isShuffling: Boolean): Unit {
         // TODO: Reported as unused. Implement or remove.
     }
 
+    /**
+     * Returns the currently playing track.
+     *
+     * @return The current track object, or `null` if no track is playing.
+     */
     fun getCurrentTrack(): Any? { // Return type Any? as placeholder
         // TODO: Reported as unused. Implement or remove.
         return null
     }
 
     /**
-     * Returns the history of previously played tracks.
+     * Retrieves the list of previously played tracks.
      *
-     * Currently returns an empty list as a placeholder.
-     * @return A list representing the track history.
+     * @return A list containing the playback history. Currently returns an empty list as a placeholder.
      */
     fun getTrackHistory(): List<Any> { // Return type List<Any> as placeholder
         // TODO: Reported as unused. Implement or remove.
@@ -82,18 +92,18 @@ class AmbientMusicService @Inject constructor() : Service() {
     }
 
     /**
-     * Skips playback to the next track.
+     * Advances playback to the next track in the queue.
      *
-     * This method is intended to advance to the next track in the playback queue.
+     * Intended to skip the current track and start playing the next one.
      */
     fun skipToNextTrack(): Unit {
         // TODO: Reported as unused. Implement or remove.
     }
 
     /**
-     * Skips playback to the previous track.
+     * Skips playback to the previous track in the playlist or queue.
      *
-     * This method is intended to move playback to the previous track in the playlist or queue.
+     * This method is intended to move playback to the previous track, if available.
      */
     fun skipToPreviousTrack(): Unit {
         // TODO: Reported as unused. Implement or remove.
