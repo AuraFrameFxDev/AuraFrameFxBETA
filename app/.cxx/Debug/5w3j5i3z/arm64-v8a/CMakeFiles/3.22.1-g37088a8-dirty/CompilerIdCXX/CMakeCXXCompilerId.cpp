@@ -761,7 +761,15 @@ const char *info_language_extensions_default = "INFO" ":" "extensions_default["
                                                #endif
                                                "]";
 
-/*--------------------------------------------------------------------------*/
+/**
+ * @brief Ensures informational string literals are included in the compiled binary.
+ *
+ * Accesses specific indices of various compile-time informational strings to prevent them from being optimized away, returning a value dependent on the program's arguments.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv The array of command-line argument strings.
+ * @return int Value derived from the accessed informational strings.
+ */
 
 int main(int argc, char *argv[]) {
     int require = 0;
