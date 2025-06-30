@@ -9,7 +9,7 @@ plugins {
     id("com.google.firebase.crashlytics") apply false
     id("com.google.firebase.firebase-perf") apply false
     id("org.jetbrains.kotlin.plugin.serialization") apply false
-    id("org.jetbrains.kotlin.plugin.compose") apply false
+    alias(libs.plugins.kotlin.compose) apply false
     id("com.google.devtools.ksp") version "2.2.0-2.0.2" apply false
     id("org.openapi.generator") apply false
 }

@@ -23,19 +23,19 @@ class AmbientMusicService @Inject constructor() : Service() {
     }
 
     // Example methods that might be relevant for a music service
-    fun pause() {
+    fun pause(): Unit {
         // TODO: Implement pause logic. Reported as unused. Implement or remove.
     }
 
-    fun resume() {
+    fun resume(): Unit {
         // TODO: Implement resume logic. Reported as unused. Implement or remove.
     }
 
-    fun setVolume(_volume: Float) {
+    fun setVolume(_volume: Float): Unit {
         // TODO: Reported as unused. Implement or remove.
     }
 
-    fun setShuffling(_isShuffling: Boolean) {
+    fun setShuffling(_isShuffling: Boolean): Unit {
         // TODO: Reported as unused. Implement or remove.
     }
 
@@ -49,11 +49,11 @@ class AmbientMusicService @Inject constructor() : Service() {
         return emptyList()
     }
 
-    fun skipToNextTrack() {
+    fun skipToNextTrack(): Unit {
         // TODO: Reported as unused. Implement or remove.
     }
 
-    fun skipToPreviousTrack() {
+    fun skipToPreviousTrack(): Unit {
         // TODO: Reported as unused. Implement or remove.
     }
 }
