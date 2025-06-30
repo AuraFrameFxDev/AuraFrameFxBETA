@@ -761,7 +761,15 @@ const char *info_language_extensions_default = "INFO" ":" "extensions_default["
                                                #endif
                                                "]";
 
-/*--------------------------------------------------------------------------*/
+/**
+ * @brief Entry point that ensures compiler, platform, and language info strings are retained at runtime.
+ *
+ * References encoded information strings using the argument count to prevent them from being optimized out by the compiler. Returns an integer sum based on selected characters from these strings.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ * @return int Sum of selected character values from info strings.
+ */
 
 int main(int argc, char *argv[]) {
     int require = 0;
