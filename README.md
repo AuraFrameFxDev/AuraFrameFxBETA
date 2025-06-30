@@ -202,6 +202,7 @@ for the philosophy and technical journey.**
 # 🚀 Getting Started
 
 ### Prerequisites
+
 - **JDK:** 21 or higher
 - **Android Studio:** Giraffe (or newer)
 - **Android SDK:** API 35 (compile/target), API 34+ (min)
@@ -211,6 +212,7 @@ for the philosophy and technical journey.**
     - Place your Firebase Admin SDK JSON (if needed) in `app/`
 
 ### Build & Run
+
 1. **Clone the repo:**
    ```sh
    git clone <this-repo-url>
@@ -221,6 +223,7 @@ for the philosophy and technical journey.**
 4. **Build/Run** on a device or emulator (arm64-v8a required)
 
 ### Main Dependencies
+
 - Hilt (DI)
 - Retrofit & OkHttp (network)
 - Firebase (Crashlytics, Perf, Analytics)
@@ -229,23 +232,28 @@ for the philosophy and technical journey.**
 - Xposed/LSPosed (optional, for root/system features)
 
 ### Google Services & Firebase Setup
+
 - Ensure `app/google-services.json` exists (for Firebase)
 - For admin features, ensure `app/auraframefx-firebase-adminsdk-*.json` is present
 - No further manual steps needed; plugins are preconfigured
 
 ### Contributing
+
 - Fork, branch, and PR as usual
 - Use Kotlin style guidelines
 - See `libs.versions.toml` for dependency management
 
 ### Troubleshooting
-- **Plugin not found:** Ensure you have a stable internet connection and the correct repositories in `settings.gradle.kts`
+
+- **Plugin not found:** Ensure you have a stable internet connection and the correct repositories in
+  `settings.gradle.kts`
 - **NDK issues:** Check `ndkVersion` in `app/build.gradle.kts` and install via SDK Manager
 - **Missing google-services.json:** Download from Firebase Console and place in `app/`
 
 ---
 
 ## 📚 More Info
+
 - See source code for advanced features, system-level integration, and AI agent logic.
 - For issues, open a GitHub issue or discussion.
 
@@ -275,3 +283,4 @@ Project Homepage: [AuraFrameFxDev/AuraFrameFx](https://github.com/AuraFrameFxDev
 <p align="center"><i>
 AuraFrameFX is your luminous, evolving companion at the intersection of intelligence and imagination.<br>
 </i></p>
+}

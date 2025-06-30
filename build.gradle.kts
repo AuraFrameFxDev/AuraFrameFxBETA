@@ -4,7 +4,7 @@ plugins {
     // All plugin versions are managed in settings.gradle.kts
     id("com.android.application") apply false
     id("org.jetbrains.kotlin.android") apply false
-    id("com.google.dagger.hilt.android") apply false
+    alias(libs.plugins.hilt) apply false
     id("com.google.gms.google-services") apply false
     id("com.google.firebase.crashlytics") apply false
     id("com.google.firebase.firebase-perf") apply false
@@ -14,8 +14,13 @@ plugins {
     id("org.openapi.generator") apply false
 }
 
-tasks.register("clean", Delete::class) {
+tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
+    // Avoid capturing project reference in configuration phase
+    val buildDir = rootProject.layout.buildDirectory.get()
+    doFirst {
+        delete(buildDir)
+    }
 }
 
 // All repositories are configured in settings.gradle.kts

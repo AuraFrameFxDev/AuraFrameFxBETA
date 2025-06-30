@@ -55,8 +55,4 @@ class AuraMoodViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        // TODO: Cleanup any resources if needed
-    }
 }

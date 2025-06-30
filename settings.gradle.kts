@@ -1,11 +1,10 @@
-
 pluginManagement {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
     }
-    
+
     // Define plugin versions (aligned with Android Studio Giraffe+ requirements)
     val agpVersion = "8.11.0"  // Updated to latest stable version
     val kotlinVersion = "2.2.0"
@@ -14,7 +13,6 @@ pluginManagement {
     val firebaseCrashlyticsVersion = "2.9.9"
     val firebasePerfVersion = "1.4.2"
     val kspVersion = "2.2.0-2.0.2"
-    val composeVersion = "2.2.0"
     val openApiGeneratorVersion = "7.6.0"
 
     plugins {

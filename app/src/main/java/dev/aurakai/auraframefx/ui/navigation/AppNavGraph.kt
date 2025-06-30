@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import dev.aurakai.auraframefx.navigation.aiContentNavigation
 import dev.aurakai.auraframefx.ui.animation.DigitalTransitions.EnterDigitalMaterialization
 import dev.aurakai.auraframefx.ui.animation.DigitalTransitions.ExitDigitalDematerialization
 import dev.aurakai.auraframefx.ui.screens.AiChatScreen
@@ -110,6 +111,9 @@ fun AppNavGraph(navController: NavHostController) {
         ) {
             OracleDriveControlScreen()
         }
+
+        // Add AI Content navigation
+        aiContentNavigation()
 
         // Add more composable destinations as needed
     }
