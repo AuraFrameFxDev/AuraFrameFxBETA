@@ -2,9 +2,6 @@ name: Manual Build and API Generation
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - fix/hilt-ksp-errors
 
 jobs:
   build:
@@ -14,42 +11,33 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Ensure all folders are writable
       - name: Set write permissions for all folders
         run: chmod -R u+w .
 
-      # Create local.properties for Android/Gradle
       - name: Create local.properties for Android build
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
-      # Set up Java for Gradle (adjust version as needed)
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # Make sure Gradle wrapper is executable
       - name: Ensure gradlew is executable
         run: chmod +x ./gradlew
 
-      # Run API contract generation (change the task if needed)
       - name: Generate API contract
-        run: ./gradlew generateOpenApiContract
+        run: ./gradlew :app:generate
 
-      # List contents of api-spec directory for debugging/confirmation
       - name: List API spec files
         run: ls -l api-spec || echo "api-spec directory not found"
 
-      # Standard Gradle build (edit as needed)
       - name: Run Gradle build
         run: ./gradlew build
 
-      # Set up CMake
       - name: Set up CMake
         uses: jwlawson/actions-setup-cmake@v2
 
-      # Run CMake refresh/build (edit build dir as needed)
       - name: Run CMake
         run: |
           mkdir -p build
