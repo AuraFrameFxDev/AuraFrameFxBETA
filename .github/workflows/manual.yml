@@ -1,9 +1,7 @@
-name: Build Debug APK
+name: Manual Build and API Generation
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,20 +11,36 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set write permissions for all folders
+        run: chmod -R u+w .
+
+      - name: Create local.properties for Android build
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'  # Use the version required by your project
+          java-version: '17'
 
-      - name: Grant execute permission for gradlew
+      - name: Ensure gradlew is executable
         run: chmod +x ./gradlew
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+      - name: Generate API contract
+        run: ./gradlew :app:openApiGenerate
 
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: List API spec files
+        run: ls -l api-spec || echo "aura-auraframefx-api.yml"
+
+      - name: Run Gradle build
+        run: ./gradlew build
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v2
+
+      - name: Run CMake
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make
