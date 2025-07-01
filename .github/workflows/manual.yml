@@ -1,32 +1,44 @@
-name: Build Debug APK
+name: Ensure Write Access, Generate API, and CMake Build
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ main ]
-  pull_request:
+    branches:
+      - fix/hilt-ksp-errors
 
 jobs:
-  build:
+  setup-and-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Ensure all folders are writeable
+        run: chmod -R u+w .
+
+      - name: Set up JDK for Gradle (if using Java/Kotlin)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'  # Use the version required by your project
+          java-version: '17'
 
-      - name: Grant execute permission for gradlew
+      - name: Grant execute permission to Gradle wrapper
         run: chmod +x ./gradlew
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+      - name: Generate API contract
+        # Replace this command with your actual generation task:
+        run: ./gradlew generateOpenApiContract
 
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Show OpenAPI file(s) in api-spec folder
+        run: ls -l api-spec
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v2
+
+      - name: Run CMake (refresh/generate)
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make
