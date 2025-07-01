@@ -27,7 +27,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Generate API contract
-        run: ./gradlew :app:generate
+        run: ./gradlew :app:openApiGenerate
 
       - name: List API spec files
         run: ls -l api-spec || echo "api-spec directory not found"
