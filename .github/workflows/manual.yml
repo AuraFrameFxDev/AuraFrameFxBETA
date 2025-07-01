@@ -1,4 +1,4 @@
-name: Ensure Write Access, Generate API, and CMake Build
+name: Manual Build and API Generation
 
 on:
   workflow_dispatch:
@@ -7,36 +7,50 @@ on:
       - fix/hilt-ksp-errors
 
 jobs:
-  setup-and-build:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ensure all folders are writeable
+      # Ensure all folders are writable
+      - name: Set write permissions for all folders
         run: chmod -R u+w .
 
-      - name: Set up JDK for Gradle (if using Java/Kotlin)
+      # Create local.properties for Android/Gradle
+      - name: Create local.properties for Android build
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+
+      # Set up Java for Gradle (adjust version as needed)
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Grant execute permission to Gradle wrapper
+      # Make sure Gradle wrapper is executable
+      - name: Ensure gradlew is executable
         run: chmod +x ./gradlew
 
+      # Run API contract generation (change the task if needed)
       - name: Generate API contract
-        # Replace this command with your actual generation task:
         run: ./gradlew generateOpenApiContract
 
-      - name: Show OpenAPI file(s) in api-spec folder
-        run: ls -l api-spec
+      # List contents of api-spec directory for debugging/confirmation
+      - name: List API spec files
+        run: ls -l api-spec || echo "api-spec directory not found"
 
+      # Standard Gradle build (edit as needed)
+      - name: Run Gradle build
+        run: ./gradlew build
+
+      # Set up CMake
       - name: Set up CMake
         uses: jwlawson/actions-setup-cmake@v2
 
-      - name: Run CMake (refresh/generate)
+      # Run CMake refresh/build (edit build dir as needed)
+      - name: Run CMake
         run: |
           mkdir -p build
           cd build
